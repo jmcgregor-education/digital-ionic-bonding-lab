@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naming Lab (Digital Version) – Week 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=Caveat+Brush&family=Caveat:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1f2d5c; --navy-deep: #17224a; --cream: #fbf4e6; --paper: #fffdf8;
+    --ink: #1e2440; --ink-soft: #4a4e68; --line: #e3d7c1;
+    --gold: #e0a93b; --gold-tint: #fbefd2; --gold-deep: #8a5d0c;
+    --purple: #6e4596; --purple-tint: #efe6f6;
+    --teal: #2c7da6; --teal-tint: #e2f0f7; --teal-deep: #1d5f82;
+    --green: #4f9440; --green-tint: #e5f2df; --green-deep: #2f6b26;
+    --orange: #e07a28; --orange-tint: #fcebdb; --orange-deep: #a64e0e;
+    --blue: #3b66b0; --pink: #b44c8c;
+    --brush: "Caveat Brush", "Segoe Print", "Comic Sans MS", cursive;
+    --script: "Caveat", "Segoe Print", cursive;
+    --ui: "Archivo", "Segoe UI", Arial, sans-serif;
+    --read: "Source Serif 4", Georgia, "Times New Roman", serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; color: var(--ink); font-family: var(--read); font-size: 1.0625rem; line-height: 1.6;
+    background:
+      radial-gradient(42vw 32vw at 0% 0%, rgba(110,69,150,.22), transparent 70%),
+      radial-gradient(38vw 30vw at 100% 6%, rgba(44,125,166,.22), transparent 70%),
+      radial-gradient(36vw 34vw at 100% 100%, rgba(224,122,40,.2), transparent 70%),
+      radial-gradient(32vw 30vw at 0% 96%, rgba(79,148,64,.18), transparent 70%),
+      var(--cream);
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3, h4 { line-height: 1.12; margin: 0; }
+  h3, h4 { font-family: var(--ui); }
+  h2 { font-family: var(--brush); font-weight: 400; font-size: 2.15rem; color: var(--navy); margin-bottom: 4px; display: flex; align-items: center; gap: 12px; }
+  h3 { font-size: 1.12rem; font-weight: 700; margin: 22px 0 8px; color: var(--navy); }
+  p { margin: 0 0 12px; max-width: 70ch; }
+  sub, sup { line-height: 0; }
+  :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 3px; }
+
+  /* ---------- hero: navy brush banner ---------- */
+  .hero { padding: 26px 0 10px; text-align: center; }
+  .hero .kicker { font-family: var(--script); font-weight: 700; font-size: 1.7rem; color: var(--navy); margin: 0 0 2px; }
+  .hero .kicker span { color: var(--purple); }
+  .banner { position: relative; padding: 34px 28px 30px; margin: 4px auto 8px; max-width: 860px; }
+  .banner svg.brush { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; overflow: visible; }
+  .banner > :not(svg) { position: relative; z-index: 1; }
+  .hero h1 { font-family: var(--brush); font-weight: 400; color: var(--cream); font-size: clamp(2.7rem, 9vw, 4.6rem); letter-spacing: .02em; text-shadow: 0 2px 0 rgba(0,0,0,.15); }
+  .hero .tagline { font-family: var(--ui); font-weight: 700; color: var(--gold); letter-spacing: .14em; font-size: clamp(.9rem, 2.6vw, 1.15rem); margin: 6px auto 0; max-width: none; }
+  .hero .tagline::before, .hero .tagline::after { content: ""; display: inline-block; width: 34px; height: 2px; background: var(--gold); vertical-align: middle; margin: 0 12px; }
+  .hero .intro { margin: 14px auto 10px; max-width: 58ch; color: var(--ink-soft); font-size: 1.05rem; }
+  .teks { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 4px; }
+  .teks span { font-family: var(--ui); font-weight: 700; font-size: .88rem; color: var(--navy); padding: 4px 13px; border-radius: 999px;
+    background: radial-gradient(circle at 30% 40%, rgba(44,125,166,.22), rgba(110,69,150,.16) 60%, rgba(255,253,248,.6)); border: 1px solid rgba(31,45,92,.18); }
+
+  /* ---------- nav ---------- */
+  nav.jump { background: rgba(255,253,248,.93); border-bottom: 1px solid var(--line); border-top: 1px solid var(--line); position: sticky; top: 0; z-index: 5; backdrop-filter: blur(4px); }
+  nav.jump .wrap { display: flex; align-items: center; gap: 14px; }
+  nav.jump ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 2px; overflow-x: auto; flex: 1; }
+  nav.jump a { display: block; padding: 11px 10px; font-family: var(--ui); font-weight: 600; font-size: .88rem; color: var(--navy); text-decoration: none; white-space: nowrap; border-bottom: 3px solid transparent; }
+  nav.jump a:hover { border-bottom-color: var(--gold); }
+  #prog { font-family: var(--script); font-weight: 700; font-size: 1.2rem; white-space: nowrap; color: var(--purple); }
+
+  /* ---------- sections and station colors ---------- */
+  section { padding: 34px 0 6px; --accent: var(--navy); --accent-tint: var(--teal-tint); }
+  section + section { border-top: 2px dashed var(--line); margin-top: 22px; }
+  #s1 { --accent: var(--purple); --accent-tint: var(--purple-tint); }
+  #s2 { --accent: var(--teal); --accent-tint: var(--teal-tint); }
+  #s3 { --accent: var(--green); --accent-tint: var(--green-tint); }
+  #s4 { --accent: var(--orange); --accent-tint: var(--orange-tint); }
+  #s5 { --accent: var(--blue); --accent-tint: var(--teal-tint); }
+  #s6 { --accent: var(--pink); --accent-tint: #f6e4ef; }
+  #exit, #results { --accent: var(--gold); --accent-tint: var(--gold-tint); }
+  .bloom { flex: none; display: inline-grid; place-items: center; width: 50px; height: 50px; border-radius: 47% 53% 45% 55% / 52% 46% 54% 48%;
+    font-family: var(--brush); font-size: 1.7rem; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,.2);
+    background: radial-gradient(circle at 38% 36%, rgba(255,255,255,.35) 0 10%, transparent 34%), var(--accent);
+    box-shadow: 0 0 0 5px var(--accent-tint), 0 0 14px 6px var(--accent-tint); }
+  .goal { font-family: var(--script); font-weight: 700; color: var(--purple); font-size: 1.35rem; line-height: 1.3; margin: 2px 0 12px; }
+
+  .callout { border-left: 5px solid var(--teal); background: var(--teal-tint); padding: 12px 16px; margin: 16px 0; border-radius: 0 10px 10px 0; }
+  .callout.warn { border-left-color: var(--gold); background: var(--gold-tint); }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout b.tag { font-family: var(--ui); display: block; margin-bottom: 3px; color: var(--navy); }
+
+  .tool { background: var(--paper); border: 1.5px solid rgba(31,45,92,.28); border-top: 6px solid var(--accent); border-radius: 12px; padding: 16px; margin: 16px 0; box-shadow: 0 2px 0 rgba(31,45,92,.06), 0 8px 22px -14px rgba(31,45,92,.35); }
+  .tool > h3 { margin-top: 0; }
+  label { font-family: var(--ui); font-weight: 600; font-size: .92rem; display: block; margin-bottom: 3px; color: var(--navy); }
+  select, input[type=text], input[type=number], textarea { font: inherit; font-family: var(--ui); font-size: 1rem; padding: 7px 9px; border: 2px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); max-width: 100%; }
+  select:focus, input:focus, textarea:focus { border-color: var(--teal); outline: none; box-shadow: 0 0 0 3px rgba(44,125,166,.25); }
+  textarea { width: 100%; min-height: 80px; resize: vertical; line-height: 1.45; }
+  input.ok, select.ok { border-color: var(--green); background: var(--green-tint); }
+  input.bad, select.bad { border-color: var(--orange); background: var(--orange-tint); }
+  button { font-family: var(--ui); font-weight: 700; font-size: .96rem; border: 2px solid var(--navy); background: var(--navy); color: var(--cream); padding: 7px 16px; border-radius: 10px; cursor: pointer; }
+  button:hover { background: var(--navy-deep); }
+  button.ghost { background: var(--paper); color: var(--navy); }
+  button.ghost:hover { background: var(--gold-tint); }
+  button[disabled] { opacity: .4; cursor: not-allowed; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin-bottom: 8px; }
+  .fb { margin-top: 8px; padding: 9px 13px; border-radius: 10px; font-family: var(--ui); font-size: .96rem; }
+  .fb.good { background: var(--green-tint); color: var(--green-deep); }
+  .fb.try { background: var(--gold-tint); color: var(--gold-deep); }
+  .fb.info { background: var(--teal-tint); color: var(--navy); }
+  .fb ul { margin: 6px 0 0; padding-left: 20px; }
+  .q { border-top: 1px dashed var(--line); padding: 14px 0; }
+  .q:first-child { border-top: 0; padding-top: 2px; }
+  .qtext { font-weight: 600; margin-bottom: 8px; }
+
+  /* ---------- ion tiles ---------- */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 6px; min-height: 48px; padding: 9px; border: 2px dashed var(--line); border-radius: 12px; background: var(--cream); }
+  .chip { font-family: var(--ui); font-weight: 700; font-size: 1.12rem; padding: 6px 15px; border-radius: 47% 53% 50% 50% / 55% 50% 50% 45%; border: 2px solid; }
+  .chip.cat { color: var(--teal-deep); border-color: var(--teal); background: radial-gradient(circle at 35% 35%, #fff 0 15%, var(--teal-tint) 60%); }
+  .chip.an { color: var(--orange-deep); border-color: var(--orange); background: radial-gradient(circle at 35% 35%, #fff 0 15%, var(--orange-tint) 60%); }
+  .chip sup { font-size: .7em; }
+  .pairhead { font-family: var(--ui); font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; color: var(--navy); }
+  .charge { font-family: var(--ui); font-weight: 600; margin: 4px 0 10px; }
+  .donelist { font-family: var(--ui); font-size: .95rem; margin-top: 10px; }
+  .donelist span { display: inline-block; background: var(--green-tint); color: var(--green-deep); border-radius: 999px; padding: 2px 11px; margin: 3px 5px 3px 0; font-weight: 600; }
+
+  .tablewrap { overflow-x: auto; margin: 10px 0 14px; }
+  table { border-collapse: collapse; width: 100%; background: var(--paper); font-size: .98rem; }
+  th, td { border: 1px solid var(--line); padding: 7px 9px; text-align: left; vertical-align: middle; }
+  th { background: var(--navy); color: var(--cream); font-family: var(--ui); font-weight: 600; font-size: .9rem; }
+  td:first-child { font-family: var(--ui); font-weight: 700; white-space: nowrap; color: var(--navy); }
+  td input[type=text], td input[type=number] { width: 100%; min-width: 70px; }
+  td.msg { font-family: var(--ui); font-size: .88rem; }
+
+  details.ref, details.lesson { border: 1.5px solid rgba(31,45,92,.22); border-left: 6px solid var(--accent); border-radius: 10px; background: var(--paper); margin: 14px 0; }
+  details > summary { cursor: pointer; padding: 11px 15px; font-family: var(--ui); font-weight: 700; color: var(--navy); }
+  details .inner { padding: 0 15px 14px; }
+  .small { font-family: var(--ui); font-size: .9rem; color: var(--ink-soft); }
+  #summaryOut { background: var(--paper); border: 1.5px solid rgba(31,45,92,.28); border-top: 6px solid var(--gold); border-radius: 12px; padding: 18px; margin-top: 14px; }
+  #summaryOut h4 { margin: 14px 0 4px; font-size: 1rem; color: var(--navy); }
+  #summaryOut .ans { white-space: pre-wrap; background: var(--cream); border-left: 3px solid var(--line); padding: 4px 10px; margin: 2px 0 8px; font-size: .96rem; }
+  footer { padding: 30px 0 50px; color: var(--ink-soft); font-size: .9rem; font-family: var(--ui); text-align: center; }
+  footer .sign { font-family: var(--script); font-weight: 700; font-size: 1.5rem; color: var(--purple); display: block; margin-bottom: 4px; }
+
+  @media (max-width: 560px) { .hero .tagline::before, .hero .tagline::after { width: 14px; margin: 0 6px; } .bloom { width: 42px; height: 42px; font-size: 1.4rem; } h2 { font-size: 1.85rem; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    body.printing > *:not(main), body.printing main > *:not(#results), body.printing #results > *:not(#summaryOut):not(h2) { display: none !important; }
+    body.printing { background: #fff; }
+    #summaryOut { border: 0; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">The Chemistry <span>of Us</span></p>
+    <div class="banner">
+      <svg class="brush" viewBox="0 0 1000 240" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <filter id="rough" x="-6%" y="-14%" width="112%" height="128%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.03 0.11" numOctaves="3" seed="11"/>
+            <feDisplacementMap in="SourceGraphic" scale="30"/>
+          </filter>
+        </defs>
+        <path d="M30 40 C 220 18, 520 30, 975 22 L 985 205 C 760 222, 430 214, 18 222 Z" fill="#1f2d5c" filter="url(#rough)"/>
+        <path d="M60 60 C 300 48, 620 56, 950 44" stroke="#2a3b74" stroke-width="10" fill="none" opacity=".6" filter="url(#rough)"/>
+      </svg>
+      <h1>Naming Lab</h1>
+      <p class="tagline">BUILD. NAME. CHECK.</p>
+    </div>
+    <p class="intro">The digital version of Thursday&rsquo;s station lab. Work through all six stations on your own, then send your results to your teacher.</p>
+    <div class="teks" aria-label="Standards covered"><span>TEKS C.6B</span><span>C.7A</span><span>C.7B</span></div>
+  </div>
+</header>
+
+<nav class="jump" aria-label="Stations">
+  <div class="wrap">
+    <ul>
+      <li><a href="#start">Start</a></li>
+      <li><a href="#s1">1 Binary</a></li>
+      <li><a href="#s2">2 Polyatomic</a></li>
+      <li><a href="#s3">3 Mystery Metals</a></li>
+      <li><a href="#s4">4 Bonds and Lewis</a></li>
+      <li><a href="#s5">5 Practice</a></li>
+      <li><a href="#s6">6 Mini-lessons</a></li>
+      <li><a href="#exit">Exit ticket</a></li>
+      <li><a href="#results">Results</a></li>
+    </ul>
+    <span id="prog" aria-live="polite"></span>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="start">
+  <h2>Before you start</h2>
+  <div class="callout warn">
+    <b class="tag">Do this in one sitting</b>
+    <p>This page does not save your work. If you close or refresh it, your answers are gone. Plan for about 60 to 75 minutes. When you finish, go to <b>Results</b> at the bottom and send your summary to your teacher.</p>
+  </div>
+  <div class="row">
+    <div><label for="stuName">Your name</label><input type="text" id="stuName" autocomplete="name" style="width:260px"></div>
+    <div><label for="stuPer">Period</label><input type="text" id="stuPer" style="width:90px"></div>
+  </div>
+  <p><b>Your goal:</b> connect why atoms bond to bond type and Lewis structures, then name and write formulas for binary ionic compounds, compounds with polyatomic ions, and compounds with metals that can have more than one charge.</p>
+  <p><b>How it works.</b> Try every answer before you check it. Most questions give a hint if you miss, and show the answer after three tries. Use your Periodic Table, your Polyatomic Chart, and your notes.</p>
+  <p><b>Typing formulas.</b> Type subscripts as normal numbers: Al2O3, Ca(OH)2. Capital letters matter. Type charges like 2+ or 3-.</p>
+  <details class="ref">
+    <summary>Reference strip: common charges and polyatomic ions</summary>
+    <div class="inner">
+      <div class="tablewrap"><table>
+        <tbody>
+          <tr><td>Metals</td><td>Group 1: 1+ &nbsp;|&nbsp; Group 2: 2+ &nbsp;|&nbsp; Al: 3+ &nbsp;|&nbsp; Zn: 2+ &nbsp;|&nbsp; Ag: 1+</td></tr>
+          <tr><td>More than one charge</td><td>Fe: 2+ or 3+ &nbsp;|&nbsp; Cu: 1+ or 2+ &nbsp;|&nbsp; Sn: 2+ or 4+ &nbsp;|&nbsp; Pb: 2+ or 4+ &nbsp;|&nbsp; Cr: 2+ or 3+</td></tr>
+          <tr><td>Nonmetals</td><td>Group 17: 1&minus; &nbsp;|&nbsp; Group 16: 2&minus; &nbsp;|&nbsp; Group 15: 3&minus;</td></tr>
+          <tr><td>Polyatomic ions</td><td>ammonium NH<sub>4</sub><sup>+</sup> &nbsp;|&nbsp; hydroxide OH<sup>&minus;</sup> &nbsp;|&nbsp; nitrate NO<sub>3</sub><sup>&minus;</sup> &nbsp;|&nbsp; carbonate CO<sub>3</sub><sup>2&minus;</sup> &nbsp;|&nbsp; sulfate SO<sub>4</sub><sup>2&minus;</sup> &nbsp;|&nbsp; phosphate PO<sub>4</sub><sup>3&minus;</sup></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </details>
+</section>
+
+<section id="s1">
+  <h2><span class="bloom" aria-hidden="true">1</span>Station 1: Build It, Binary</h2>
+  <p class="goal">Goal: build neutral compounds from ion tiles, then write each formula and name. Binary means only two elements.</p>
+  <p>Add tiles until the compound is neutral, using the <b>fewest tiles</b> you can. Then write the formula and the name.</p>
+  <div class="tool" id="b1"></div>
+  <div class="tool"><h3>Station 1 questions</h3><div id="s1q"></div></div>
+</section>
+
+<section id="s2">
+  <h2><span class="bloom" aria-hidden="true">2</span>Station 2: Build It, Polyatomic</h2>
+  <p class="goal">Goal: build compounds that contain polyatomic ions and find out when parentheses are needed.</p>
+  <p>A polyatomic ion tile is <b>one unit</b>, even though it has several atoms. Use parentheses in your formula when you think you need them.</p>
+  <div class="tool" id="b2"></div>
+  <div class="tool"><h3>Station 2 questions</h3><div id="s2q"></div></div>
+</section>
+
+<section id="s3">
+  <h2><span class="bloom" aria-hidden="true">3</span>Station 3: Mystery Metals</h2>
+  <p class="goal">Goal: find the charge on metals that can have more than one charge, and name the compounds.</p>
+  <p>These bottle labels lost the metal&rsquo;s charge. For each formula, find the total charge of the anion part, split it among the metal ions, decide whether a Roman numeral is needed, and name the compound. Check one row at a time.</p>
+  <div class="tool"><h3>Find the charge and name it</h3><div class="tablewrap"><table id="t3">
+    <thead><tr><th>Formula</th><th>Total negative charge</th><th>Charge on each metal ion</th><th>Roman numeral?</th><th>Name</th><th></th></tr></thead><tbody></tbody>
+  </table></div></div>
+  <div class="tool"><h3>Reverse it: write the formula</h3><div id="s3rev"></div></div>
+  <div class="tool"><h3>Station 3 questions</h3><div id="s3q"></div></div>
+</section>
+
+<section id="s4">
+  <h2><span class="bloom" aria-hidden="true">4</span>Station 4: Bonds and Lewis</h2>
+  <p class="goal">Goal: connect why atoms bond to bond type and Lewis structures.</p>
+  <div class="tool"><h3>Part A: Why atoms bond</h3><div id="s4a"></div></div>
+  <div class="tool"><h3>Part B: Bond type from electronegativity</h3>
+    <p>Subtract the smaller electronegativity from the larger. Less than 0.4 is nonpolar covalent, 0.4 to 1.7 is polar covalent, and greater than 1.7 is ionic.</p>
+    <div class="tablewrap"><table id="t4">
+      <thead><tr><th>Pair</th><th>Difference</th><th>Bond type</th><th>Which atom is partly negative?</th><th></th></tr></thead><tbody></tbody>
+    </table></div>
+  </div>
+  <div class="tool"><h3>Part C: Lewis structures for ionic compounds</h3>
+    <p>Sketch each Lewis structure in your notebook first: dots for valence electrons, arrows for the transfer, then the ions in brackets with charges. Then answer these to check your drawing. Show your teacher the sketch when you are back.</p>
+    <div id="s4c"></div>
+  </div>
+</section>
+
+<section id="s5">
+  <h2><span class="bloom" aria-hidden="true">5</span>Station 5: Practice and Check</h2>
+  <p class="goal">Goal: practice all three kinds of compounds, then check your work and sort your mistakes.</p>
+  <p>Answer all 12 before you check. Your first-try score is recorded, then you can fix any misses.</p>
+  <div class="tool"><div id="s5list"></div>
+    <div class="row" style="margin-top:12px"><button type="button" id="s5check">Check my work</button></div>
+    <div id="s5fb" aria-live="polite"></div>
+    <div id="s5after" hidden>
+      <div class="row" style="margin-top:12px">
+        <div><label for="s5code">My most common mistake</label>
+          <select id="s5code"><option value="">Choose&hellip;</option><option>None: all correct on the first try</option><option>Subscript or charge mix-up</option><option>Parentheses</option><option>Roman numeral</option><option>Name ending or spelling</option><option>Other</option></select></div>
+      </div>
+      <label for="s5diff">One thing I will do differently</label><textarea id="s5diff"></textarea>
+    </div>
+  </div>
+</section>
+
+<section id="s6">
+  <h2><span class="bloom" aria-hidden="true">6</span>Station 6: Check-in and mini-lessons</h2>
+  <p class="goal">Goal: show what you know, then read the mini-lesson you need or take on the challenge. In class this is the Teacher Table.</p>
+  <div class="tool"><h3>Check-in</h3>
+    <p>Answer all three from memory, then check in. You get one check.</p>
+    <div id="s6ci"></div>
+    <div class="row" style="margin-top:10px"><button type="button" id="s6btn">Check in</button></div>
+    <div id="s6fb" aria-live="polite"></div>
+  </div>
+  <div id="s6lessons" hidden>
+    <details class="lesson" id="lesA"><summary>Mini-lesson A: Binary ionic compounds</summary><div class="inner">
+      <p>Cation first, anion second, and the charges must cancel to zero. Take Mg<sup>2+</sup> and Cl<sup>&minus;</sup>. One Mg gives +2, so you need two Cl<sup>&minus;</sup>: MgCl<sub>2</sub>. For Al<sup>3+</sup> and O<sup>2&minus;</sup>, the common multiple is 6: two Al and three O make Al<sub>2</sub>O<sub>3</sub>. Always use the lowest ratio, so Ca<sup>2+</sup> and O<sup>2&minus;</sup> is CaO.</p>
+      <p>To name it, say the metal, then the nonmetal with the ending <b>-ide</b>: magnesium chloride. Ionic names never use <i>di-</i> or <i>tri-</i>.</p>
+      <div id="lesAq"></div></div></details>
+    <details class="lesson" id="lesB"><summary>Mini-lesson B: Polyatomic ions</summary><div class="inner">
+      <p>A polyatomic ion is one unit with one charge. Do not split it up. Ca<sup>2+</sup> and NO<sub>3</sub><sup>&minus;</sup> need two nitrates, so the formula is Ca(NO<sub>3</sub>)<sub>2</sub>. The parentheses show that the 2 applies to the whole ion. Use parentheses only when you need more than one: NaOH has none, Ca(OH)<sub>2</sub> does.</p>
+      <p>The name keeps the polyatomic ion&rsquo;s own name: calcium nitrate.</p>
+      <div id="lesBq"></div></div></details>
+    <details class="lesson" id="lesC"><summary>Mini-lesson C: Metals with more than one charge</summary><div class="inner">
+      <p>Most transition metals, plus tin and lead, can have more than one charge. Their names need a Roman numeral that shows the metal&rsquo;s charge. Groups 1 and 2, aluminum, zinc, and silver never get one.</p>
+      <p>Find the charge by balancing. In FeCl<sub>3</sub>, three Cl<sup>&minus;</sup> make 3&minus;, so the one Fe is 3+: iron(III) chloride. In Fe<sub>2</sub>O<sub>3</sub>, three O<sup>2&minus;</sup> make 6&minus;, shared by two Fe, so each is 3+: iron(III) oxide. The Roman numeral is the charge, not the number of atoms.</p>
+      <div id="lesCq"></div></div></details>
+    <div class="tool"><h3>Challenge: find the mistake</h3><p>A classmate made each of these mistakes. Write the correct answer.</p><div id="s6fix"></div></div>
+    <div class="tool"><h3>Challenge: make your own (optional)</h3>
+      <p>Write one compound of each type with its formula and name. Your teacher will check these.</p>
+      <div class="tablewrap"><table id="t6"><thead><tr><th>Type</th><th>Formula</th><th>Name</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<section id="exit">
+  <h2><span class="bloom" aria-hidden="true">&#10003;</span>Exit ticket</h2>
+  <p class="goal">Six questions, one attempt. Do this last, without your notes.</p>
+  <div class="tool"><div id="exlist"></div>
+    <div class="row" style="margin-top:12px"><button type="button" id="exbtn">Submit exit ticket</button></div>
+    <div id="exfb" aria-live="polite"></div>
+  </div>
+  <div class="tool"><h3>Reflect</h3>
+    <label for="r1">I am sure about</label><textarea id="r1"></textarea>
+    <label for="r2">Still shaky</label><textarea id="r2"></textarea>
+    <label for="r3">The mistake I will watch for next time</label><textarea id="r3"></textarea>
+  </div>
+</section>
+
+<section id="results">
+  <h2><span class="bloom" aria-hidden="true">&#9733;</span>Results: send this to your teacher</h2>
+  <p>When you have finished everything, build your summary. Then save it as a PDF or copy it and paste it into your Canvas submission.</p>
+  <div class="row">
+    <button type="button" id="mkSum">Build my results summary</button>
+    <button type="button" class="ghost" id="prSum" hidden>Print or save as PDF</button>
+    <button type="button" class="ghost" id="cpSum" hidden>Copy summary text</button>
+  </div>
+  <div id="cpFb" class="small" aria-live="polite"></div>
+  <textarea id="cpArea" hidden aria-label="Summary text to copy" style="min-height:160px;margin-top:8px"></textarea>
+  <div id="summaryOut" hidden></div>
+</section>
+
+</main>
+<footer><div class="wrap"><span class="sign">Curiosity creates change.</span>Digital version of the Week 1 Naming Lab. Based on Summit K12 Lesson Guides 4.1, 4.2, and 5.1.</div></footer>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var MINUS = "\u2212";
+
+  /* ---------- helpers ---------- */
+  function hs(t) { return String(t).replace(/(\d+)/g, "<sub>$1</sub>"); }
+  function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function ion(sym, q) { var n = Math.abs(q); return hs(sym) + "<sup>" + (n > 1 ? n : "") + (q > 0 ? "+" : MINUS) + "</sup>"; }
+  function normF(s) {
+    return String(s).replace(/[\u2080-\u2089]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0x2080 + 48); })
+      .replace(/[\s_]/g, "").replace(/[\[\{]/g, "(").replace(/[\]\}]/g, ")");
+  }
+  function normN(s) { return normF(s).toLowerCase(); }
+  function chargeOK(s, q) {
+    var t = String(s).replace(/\s/g, "").replace(/[\u2212\u2013\u2014]/g, "-");
+    var m = /^([+-]?)(\d*)([+-]?)$/.exec(t); if (!m || (!m[1] && !m[3]) || (m[1] && m[3])) return false;
+    var sign = (m[1] || m[3]) === "+" ? 1 : -1, mag = m[2] === "" ? 1 : parseInt(m[2], 10);
+    return sign * mag === q;
+  }
+  function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+
+  /* ---------- tracking ---------- */
+  var ITEMS = {}, ORDER = [], FREE = {}, FREEORDER = [];
+  function reg(id, station, label) { ITEMS[id] = { station: station, label: label, tries: 0, done: false, first: false, help: false }; ORDER.push(id); }
+  function mark(id, ok, reveal) {
+    var it = ITEMS[id]; if (it.done) return;
+    it.tries++;
+    if (ok) { it.done = true; it.first = it.tries === 1; }
+    else if (reveal) { it.done = true; it.help = true; }
+    progress();
+  }
+  function progress() {
+    var d = 0; ORDER.forEach(function (k) { if (ITEMS[k].done) d++; });
+    $("prog").textContent = d + " of " + ORDER.length + " checked";
+  }
+  function fb(el, cls, html) { el.innerHTML = '<div class="fb ' + cls + '">' + html + "</div>"; }
+
+  /* ---------- generic text item ---------- */
+  // cfg: id, station, label, prompt(html), kind: formula|name|charge|num, ans (string or number), show (answer shown), hint, work, width
+  function textItem(box, cfg) {
+    reg(cfg.id, cfg.station, cfg.label);
+    var d = document.createElement("div"); d.className = "q";
+    d.innerHTML = '<div class="qtext">' + cfg.prompt + '</div><div class="row"><div><label for="i_' + cfg.id + '">' + (cfg.inputLabel || "Your answer") + '</label>' +
+      '<input type="text" id="i_' + cfg.id + '" autocomplete="off" autocapitalize="off" spellcheck="false" style="width:' + (cfg.width || 230) + 'px"></div>' +
+      '<button type="button">Check</button></div><div class="f" aria-live="polite"></div>';
+    box.appendChild(d);
+    var inp = d.querySelector("input"), btn = d.querySelector("button"), f = d.querySelector(".f");
+    function right(v) {
+      if (cfg.kind === "formula") return normF(v) === cfg.ans;
+      if (cfg.kind === "name") return normN(v) === normN(cfg.ans);
+      if (cfg.kind === "charge") return chargeOK(v, cfg.ans);
+      if (cfg.kind === "num") return Math.abs(parseFloat(v) - cfg.ans) <= (cfg.tol || 0);
+      return false;
+    }
+    btn.addEventListener("click", function () {
+      var v = inp.value.trim(); if (!v) { fb(f, "try", "Type an answer first."); return; }
+      if (ITEMS[cfg.id].done) return;
+      if (right(v)) { mark(cfg.id, true); inp.className = "ok"; inp.disabled = btn.disabled = true; fb(f, "good", "Correct." + (cfg.work ? " " + cfg.work : "")); return; }
+      var tries = ITEMS[cfg.id].tries + 1, msg = cfg.hint || "Not yet. Try again.";
+      if (cfg.kind === "formula" && normF(v).toLowerCase() === cfg.ans.toLowerCase()) msg = "Right elements and numbers. Check your capital and lowercase letters.";
+      if (tries >= 3) {
+        mark(cfg.id, false, true); inp.className = "bad"; inp.disabled = btn.disabled = true;
+        fb(f, "try", "The answer is <b>" + (cfg.show || hs(cfg.ans)) + "</b>." + (cfg.work ? " " + cfg.work : ""));
+      } else { mark(cfg.id, false); inp.className = "bad"; fb(f, "try", msg); }
+    });
+  }
+
+  /* ---------- free response ---------- */
+  function freeItem(box, cfg) {
+    FREEORDER.push(cfg.id); FREE[cfg.id] = { station: cfg.station, label: cfg.label, text: "" };
+    reg(cfg.id, cfg.station, cfg.label);
+    var d = document.createElement("div"); d.className = "q";
+    d.innerHTML = '<div class="qtext">' + cfg.prompt + '</div><label for="i_' + cfg.id + '">Your answer (a sentence or two)</label><textarea id="i_' + cfg.id + '"></textarea>' +
+      '<div class="row" style="margin-top:8px"><button type="button">Compare with key ideas</button></div><div class="f" aria-live="polite"></div>';
+    box.appendChild(d);
+    var ta = d.querySelector("textarea"), f = d.querySelector(".f");
+    ta.addEventListener("input", function () { FREE[cfg.id].text = ta.value.trim(); });
+    d.querySelector("button").addEventListener("click", function () {
+      var v = ta.value.trim();
+      if (v.length < 25) { fb(f, "try", "Write a fuller answer first (at least a sentence), then compare."); return; }
+      FREE[cfg.id].text = v; mark(cfg.id, true);
+      fb(f, "info", "<b>Did your answer include these ideas?</b><ul>" + cfg.key.map(function (k) { return "<li>" + k + "</li>"; }).join("") + "</ul>If you missed one, add it to your answer now.");
+    });
+  }
+
+  /* ---------- tile builder ---------- */
+  function Builder(rootId, station, pairs) {
+    var root = $(rootId), step = 0, nC = 0, nA = 0, built = false, doneNames = [];
+    pairs.forEach(function (p, i) {
+      reg(station + "b" + i, station, "Build " + p.f); reg(station + "f" + i, station, "Formula " + p.f); reg(station + "n" + i, station, "Name " + p.f);
+    });
+    function render() {
+      if (step >= pairs.length) {
+        root.innerHTML = '<h3>All ' + pairs.length + ' compounds built</h3><div class="donelist">' + doneNames.map(function (x) { return "<span>" + x + "</span>"; }).join("") + "</div>";
+        return;
+      }
+      var p = pairs[step];
+      var h = '<div class="pairhead">Compound ' + (step + 1) + " of " + pairs.length + ": " + ion(p.c.s, p.c.q) + " and " + ion(p.a.s, -p.a.q) + (p.challenge ? " (challenge)" : "") + "</div>";
+      if (p.challenge && !p.predicted) {
+        h += '<p>Predict first. What formula do you expect?</p><div class="row"><div><label for="' + rootId + 'pred">My prediction</label><input type="text" id="' + rootId + 'pred" autocomplete="off" autocapitalize="off" spellcheck="false"></div><button type="button" data-act="pred">Lock in prediction</button></div><div class="f" aria-live="polite"></div>';
+        root.innerHTML = h; return;
+      }
+      h += '<div class="row"><button type="button" class="ghost" data-act="c+">Add ' + ion(p.c.s, p.c.q) + '</button><button type="button" class="ghost" data-act="c-">Remove ' + ion(p.c.s, p.c.q) + '</button>' +
+           '<button type="button" class="ghost" data-act="a+">Add ' + ion(p.a.s, -p.a.q) + '</button><button type="button" class="ghost" data-act="a-">Remove ' + ion(p.a.s, -p.a.q) + "</button></div>";
+      var chips = "", i;
+      for (i = 0; i < nC; i++) chips += '<span class="chip cat">' + ion(p.c.s, p.c.q) + "</span>";
+      for (i = 0; i < nA; i++) chips += '<span class="chip an">' + ion(p.a.s, -p.a.q) + "</span>";
+      var pos = nC * p.c.q, neg = nA * p.a.q, net = pos - neg;
+      h += '<div class="chips" aria-label="Your tiles">' + (chips || '<span class="small">No tiles yet.</span>') + "</div>";
+      h += '<div class="charge" aria-live="polite">Positive: +' + pos + " &nbsp; Negative: " + MINUS + neg + " &nbsp; Net charge: " + (net > 0 ? "+" + net : (net < 0 ? MINUS + (-net) : "0")) + "</div>";
+      if (!built) h += '<div class="row"><button type="button" data-act="check">Check my build</button></div><div class="f" aria-live="polite"></div>';
+      else {
+        h += '<div class="fb good">Neutral with the fewest tiles: ' + nC + " " + ion(p.c.s, p.c.q) + " and " + nA + " " + ion(p.a.s, -p.a.q) + ". Now write it.</div>";
+        h += '<div class="row" style="margin-top:10px"><div><label for="' + rootId + 'F">Formula</label><input type="text" id="' + rootId + 'F" autocomplete="off" autocapitalize="off" spellcheck="false" style="width:170px"></div>' +
+             '<div><label for="' + rootId + 'N">Name</label><input type="text" id="' + rootId + 'N" autocomplete="off" autocapitalize="off" spellcheck="false" style="width:240px"></div>' +
+             '<button type="button" data-act="write">Check</button></div><div class="f" aria-live="polite"></div>';
+      }
+      if (doneNames.length) h += '<div class="donelist">Finished: ' + doneNames.map(function (x) { return "<span>" + x + "</span>"; }).join("") + "</div>";
+      root.innerHTML = h;
+    }
+    root.addEventListener("click", function (ev) {
+      var b = ev.target.closest("button[data-act]"); if (!b) return;
+      var act = b.getAttribute("data-act"), p = pairs[step], f = root.querySelector(".f");
+      if (act === "pred") {
+        var pv = $(rootId + "pred").value.trim(); if (!pv) { fb(f, "try", "Type your prediction first."); return; }
+        p.predicted = pv; FREE[station + "pred"] = { station: station, label: "Challenge prediction", text: pv }; if (FREEORDER.indexOf(station + "pred") < 0) FREEORDER.push(station + "pred");
+        render(); return;
+      }
+      if (act === "c+") { if (nC < 6) nC++; render(); return; }
+      if (act === "c-") { if (nC > 0) nC--; render(); return; }
+      if (act === "a+") { if (nA < 6) nA++; render(); return; }
+      if (act === "a-") { if (nA > 0) nA--; render(); return; }
+      if (act === "check") {
+        var g = gcd(p.c.q, p.a.q), wantC = p.a.q / g, wantA = p.c.q / g, pos = nC * p.c.q, neg = nA * p.a.q;
+        if (nC === 0 || nA === 0) { fb(f, "try", "You need at least one of each ion."); return; }
+        if (pos !== neg) { mark(station + "b" + step, false); fb(f, "try", "Not neutral yet. The positive and negative charges must cancel."); return; }
+        if (nC !== wantC || nA !== wantA) { mark(station + "b" + step, false); fb(f, "try", "It is neutral, but you can do it with fewer tiles. Use the lowest ratio."); return; }
+        mark(station + "b" + step, true); built = true; render(); return;
+      }
+      if (act === "write") {
+        var fi = $(rootId + "F"), ni = $(rootId + "N"), fv = fi.value.trim(), nv = ni.value.trim();
+        if (!fv || !nv) { fb(f, "try", "Type both the formula and the name."); return; }
+        var fk = station + "f" + step, nk = station + "n" + step, msgs = [];
+        var fOK = ITEMS[fk].done && !ITEMS[fk].help ? true : normF(fv) === p.f, nOK = ITEMS[nk].done && !ITEMS[nk].help ? true : normN(nv) === normN(p.n);
+        if (!ITEMS[fk].done) {
+          if (fOK) mark(fk, true);
+          else if (ITEMS[fk].tries >= 2) { mark(fk, false, true); msgs.push("The formula is <b>" + hs(p.f) + "</b>."); fOK = true; }
+          else { mark(fk, false); msgs.push(normF(fv).toLowerCase() === p.f.toLowerCase() ? "Formula: right elements and numbers. Check your capital letters." : (p.poly && normF(fv).indexOf("(") < 0 && p.f.indexOf("(") >= 0 ? "Formula: more than one polyatomic ion needs parentheses." : "Formula: use your tile counts as the subscripts. Cation first. A count of 1 is not written.")); }
+        }
+        if (!ITEMS[nk].done) {
+          if (nOK) mark(nk, true);
+          else if (ITEMS[nk].tries >= 2) { mark(nk, false, true); msgs.push("The name is <b>" + p.n + "</b>."); nOK = true; }
+          else { mark(nk, false); msgs.push(p.poly ? "Name: cation name first, then the polyatomic ion&rsquo;s own name. No prefixes." : "Name: metal name first, then the nonmetal with the ending -ide. No prefixes."); }
+        }
+        fi.className = fOK ? "ok" : "bad"; ni.className = nOK ? "ok" : "bad";
+        if (fOK && nOK) {
+          doneNames.push(hs(p.f) + " " + p.n); step++; nC = 0; nA = 0; built = false;
+          if (msgs.length) { render(); var ff = document.createElement("div"); ff.innerHTML = '<div class="fb try">' + msgs.join(" ") + "</div>"; root.insertBefore(ff, root.firstChild); }
+          else render();
+        } else fb(f, "try", msgs.join("<br>"));
+      }
+    });
+    render();
+  }
+
+  var I = function (s, q, n) { return { s: s, q: q, n: n }; };
+  Builder("b1", "S1", [
+    { c: I("Na", 1), a: I("Cl", 1), f: "NaCl", n: "sodium chloride" },
+    { c: I("Mg", 2), a: I("Cl", 1), f: "MgCl2", n: "magnesium chloride" },
+    { c: I("K", 1), a: I("O", 2), f: "K2O", n: "potassium oxide" },
+    { c: I("Ca", 2), a: I("O", 2), f: "CaO", n: "calcium oxide" },
+    { c: I("Al", 3), a: I("O", 2), f: "Al2O3", n: "aluminum oxide" },
+    { c: I("Mg", 2), a: I("N", 3), f: "Mg3N2", n: "magnesium nitride" },
+    { c: I("Al", 3), a: I("Cl", 1), f: "AlCl3", n: "aluminum chloride" },
+    { c: I("Al", 3), a: I("S", 2), f: "Al2S3", n: "aluminum sulfide", challenge: true }
+  ]);
+  Builder("b2", "S2", [
+    { c: I("Na", 1), a: I("OH", 1), f: "NaOH", n: "sodium hydroxide", poly: 1 },
+    { c: I("Ca", 2), a: I("OH", 1), f: "Ca(OH)2", n: "calcium hydroxide", poly: 1 },
+    { c: I("Mg", 2), a: I("NO3", 1), f: "Mg(NO3)2", n: "magnesium nitrate", poly: 1 },
+    { c: I("NH4", 1), a: I("SO4", 2), f: "(NH4)2SO4", n: "ammonium sulfate", poly: 1 },
+    { c: I("Al", 3), a: I("SO4", 2), f: "Al2(SO4)3", n: "aluminum sulfate", poly: 1 },
+    { c: I("Ca", 2), a: I("PO4", 3), f: "Ca3(PO4)2", n: "calcium phosphate", poly: 1 },
+    { c: I("NH4", 1), a: I("NO3", 1), f: "NH4NO3", n: "ammonium nitrate", poly: 1 },
+    { c: I("Al", 3), a: I("CO3", 2), f: "Al2(CO3)3", n: "aluminum carbonate", poly: 1, challenge: true }
+  ]);
+
+  /* ---------- Station 1 and 2 questions ---------- */
+  freeItem($("s1q"), { id: "S1q1", station: "S1", label: "Rule for tile counts", prompt: "1. Look back at your tile counts. Write a rule for deciding how many cation tiles and how many anion tiles you need.",
+    key: ["The total positive charge must equal the total negative charge.", "(number of cations &times; cation charge) = (number of anions &times; anion charge)."] });
+  freeItem($("s1q"), { id: "S1q2", station: "S1", label: "Why CaO", prompt: "2. For CaO you used one Ca and one O, but two Ca and two O would also be neutral. Why is CaO the correct formula?",
+    key: ["An ionic formula shows a formula unit: the lowest whole-number ratio of ions.", "Ca<sub>2</sub>O<sub>2</sub> reduces to CaO."] });
+  freeItem($("s1q"), { id: "S1q3", station: "S1", label: "Binary naming rule", prompt: "3. Write the rule for naming a binary ionic compound. Use two of your compounds as examples.",
+    key: ["Name the metal (cation) first.", "Then name the nonmetal with its ending changed to -ide.", "No number prefixes, for example sodium chloride and aluminum oxide."] });
+
+  freeItem($("s2q"), { id: "S2q1", station: "S2", label: "Parentheses rule", prompt: "1. Which of your formulas needed parentheses? What do those compounds have in common? Write a rule.",
+    key: ["Parentheses are needed only when the formula has more than one of the same polyatomic ion.", "Examples: Ca(OH)<sub>2</sub>, Mg(NO<sub>3</sub>)<sub>2</sub>, (NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub>, Al<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub>, Ca<sub>3</sub>(PO<sub>4</sub>)<sub>2</sub>."] });
+  (function () {
+    reg("S2q2", "S2", "Atom count in Al2(SO4)3");
+    var d = document.createElement("div"); d.className = "q";
+    d.innerHTML = '<div class="qtext">2. In Al<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub>, the 3 outside the parentheses applies to the whole sulfate ion. Count the atoms in one formula unit.</div>' +
+      '<div class="row"><div><label for="ac1">Al atoms</label><input type="number" id="ac1" style="width:90px"></div><div><label for="ac2">S atoms</label><input type="number" id="ac2" style="width:90px"></div><div><label for="ac3">O atoms</label><input type="number" id="ac3" style="width:90px"></div><button type="button">Check</button></div><div class="f" aria-live="polite"></div>';
+    $("s2q").appendChild(d);
+    var f = d.querySelector(".f"), btn = d.querySelector("button"), ins = [$("ac1"), $("ac2"), $("ac3")], want = [2, 3, 12];
+    btn.addEventListener("click", function () {
+      if (ITEMS.S2q2.done) return;
+      if (ins.some(function (x) { return x.value === ""; })) { fb(f, "try", "Fill in all three."); return; }
+      var ok = true; ins.forEach(function (x, i) { var o = +x.value === want[i]; x.className = o ? "ok" : "bad"; if (!o) ok = false; });
+      if (ok) { mark("S2q2", true); btn.disabled = true; fb(f, "good", "Correct. 2 Al, and the 3 multiplies everything in the parentheses: 3 S and 12 O."); }
+      else if (ITEMS.S2q2.tries >= 2) { mark("S2q2", false, true); btn.disabled = true; fb(f, "try", "The answer is 2 Al, 3 S, and 12 O. The 3 multiplies the whole sulfate ion (1 S and 4 O each)."); }
+      else { mark("S2q2", false); fb(f, "try", "Not yet. The 3 multiplies everything inside the parentheses."); }
+    });
+  })();
+  freeItem($("s2q"), { id: "S2q3", station: "S2", label: "Why NaOH is not binary", prompt: "3. Hydroxide ends in <i>-ide</i>, but sodium hydroxide is <b>not</b> a binary compound. How can you tell from the formula NaOH?",
+    key: ["NaOH contains three elements: Na, O, and H.", "A binary compound has only two elements."] });
+  freeItem($("s2q"), { id: "S2q4", station: "S2", label: "Polyatomic naming rule", prompt: "4. Write the rule for naming a compound with a polyatomic ion.",
+    key: ["Name the cation first.", "Then use the polyatomic ion&rsquo;s own name, unchanged (do not change it to -ide)."] });
+
+  /* ---------- Station 3 ---------- */
+  var M = [
+    { f: "FeCl2", neg: -2, m: 2, r: "yes", n: "iron(II) chloride" }, { f: "FeCl3", neg: -3, m: 3, r: "yes", n: "iron(III) chloride" },
+    { f: "Cu2O", neg: -2, m: 1, r: "yes", n: "copper(I) oxide" }, { f: "CuO", neg: -2, m: 2, r: "yes", n: "copper(II) oxide" },
+    { f: "ZnCl2", neg: -2, m: 2, r: "no", n: "zinc chloride" }, { f: "SnS2", neg: -4, m: 4, r: "yes", n: "tin(IV) sulfide" },
+    { f: "Fe2(SO4)3", neg: -6, m: 3, r: "yes", n: "iron(III) sulfate" }, { f: "MnO2", neg: -4, m: 4, r: "yes", n: "manganese(IV) oxide" }
+  ];
+  var t3 = document.querySelector("#t3 tbody");
+  M.forEach(function (r, i) {
+    reg("S3r" + i, "S3", "Mystery metal " + r.f);
+    var tr = document.createElement("tr");
+    tr.innerHTML = "<td>" + hs(r.f) + '</td><td><input type="text" aria-label="Total negative charge for ' + r.f + '" autocomplete="off"></td><td><input type="text" aria-label="Charge on each metal ion in ' + r.f + '" autocomplete="off"></td>' +
+      '<td><select aria-label="Roman numeral needed for ' + r.f + '"><option value="">Choose</option><option>yes</option><option>no</option></select></td><td><input type="text" aria-label="Name of ' + r.f + '" autocomplete="off" autocapitalize="off" spellcheck="false" style="min-width:170px"></td>' +
+      '<td class="msg"><button type="button" class="ghost">Check</button><div class="m" aria-live="polite"></div></td>';
+    t3.appendChild(tr);
+    var el = tr.querySelectorAll("input, select"), btn = tr.querySelector("button"), m = tr.querySelector(".m");
+    btn.addEventListener("click", function () {
+      var k = "S3r" + i; if (ITEMS[k].done) return;
+      if ([].some.call(el, function (x) { return !x.value.trim(); })) { m.textContent = "Fill in the whole row."; return; }
+      var ok = [chargeOK(el[0].value, r.neg), chargeOK(el[1].value, r.m), el[2].value === r.r, normN(el[3].value) === normN(r.n)];
+      [].forEach.call(el, function (x, j) { x.className = ok[j] ? "ok" : "bad"; });
+      if (ok.every(Boolean)) { mark(k, true); btn.disabled = true; [].forEach.call(el, function (x) { x.disabled = true; }); m.textContent = "Correct."; }
+      else if (ITEMS[k].tries >= 2) {
+        mark(k, false, true); btn.disabled = true;
+        m.innerHTML = "Answer: " + Math.abs(r.neg) + MINUS + ", " + r.m + "+, " + r.r + ", " + r.n + ".";
+      } else {
+        mark(k, false);
+        m.textContent = !ok[0] ? "Start with the anion: its charge times how many." : (!ok[1] ? "Split the total positive charge among the metal ions." : (!ok[2] ? "Can this metal have more than one charge?" : "Check the name and the Roman numeral."));
+      }
+    });
+  });
+  [["copper(II) chloride", "CuCl2"], ["iron(II) oxide", "FeO"], ["lead(IV) oxide", "PbO2"], ["chromium(III) nitrate", "Cr(NO3)3"]].forEach(function (x, i) {
+    textItem($("s3rev"), { id: "S3v" + i, station: "S3", label: "Formula for " + x[0], prompt: x[0], kind: "formula", ans: x[1], inputLabel: "Formula", width: 180,
+      hint: "Not yet. The Roman numeral is the metal&rsquo;s charge. Balance it with the anion&rsquo;s charge." });
+  });
+  freeItem($("s3q"), { id: "S3q1", station: "S3", label: "Why iron chloride is unclear", prompt: "1. A bottle is labeled &ldquo;iron chloride.&rdquo; Why can&rsquo;t you tell what is inside? What information is missing?",
+    key: ["Iron can be 2+ or 3+.", "So it could be FeCl<sub>2</sub> or FeCl<sub>3</sub>.", "The charge (the Roman numeral) is missing."] });
+  freeItem($("s3q"), { id: "S3q2", station: "S3", label: "When a Roman numeral is needed", prompt: "2. How can you decide whether a metal needs a Roman numeral? Look at ZnCl<sub>2</sub> and FeCl<sub>2</sub>.",
+    key: ["A metal needs one if it can form more than one charge (most transition metals, tin, lead).", "Zinc only forms 2+, like Groups 1 and 2, aluminum, and silver, so it needs none."] });
+  freeItem($("s3q"), { id: "S3q3", station: "S3", label: "MnO2 charge", prompt: "3. In MnO<sub>2</sub>, the subscript is 2, but the charge on manganese is not 2+. Explain what you did to find the correct charge.",
+    key: ["Two O<sup>2&minus;</sup> ions total 4&minus;.", "One Mn must balance that, so it is 4+.", "The subscript counts oxide ions. It is not the metal&rsquo;s charge."] });
+
+  /* ---------- Station 4 ---------- */
+  freeItem($("s4a"), { id: "S4a1", station: "S4", label: "Na and Cl octet", prompt: "1. Sodium has 1 valence electron and chlorine has 7. Use the octet rule to explain what happens when they bond and what kind of bond results.",
+    key: ["Sodium gives its one valence electron to chlorine.", "Na becomes Na<sup>+</sup> and Cl becomes Cl<sup>&minus;</sup>, each with a full outer shell.", "The oppositely charged ions attract: an ionic bond."] });
+  freeItem($("s4a"), { id: "S4a2", station: "S4", label: "Ionic vs covalent", prompt: "2. Give one difference between an ionic compound and a covalent compound. Think about the electrons and the particles.",
+    key: ["Ionic: electrons are transferred. Covalent: electrons are shared.", "Ionic: ions packed in a crystal. Covalent: separate molecules.", "Ionic is usually a metal with a nonmetal. Covalent is usually nonmetals."] });
+  freeItem($("s4a"), { id: "S4a3", station: "S4", label: "Why H2O2 is not reduced", prompt: "3. H<sub>2</sub>O<sub>2</sub> is not written as HO. Why can&rsquo;t a molecule&rsquo;s formula be reduced the way an ionic formula is?",
+    key: ["A molecular formula shows the actual number of atoms in one molecule.", "An ionic formula shows only the lowest ratio of ions in a crystal."] });
+  var B = [["Na", 0.93, "Cl", 3.16, "Ionic"], ["C", 2.55, "H", 2.20, "Nonpolar covalent"], ["O", 3.44, "H", 2.20, "Polar covalent"],
+           ["Mg", 1.31, "O", 3.44, "Ionic"], ["N", 3.04, "H", 2.20, "Polar covalent"], ["Cl", 3.16, "Cl", 3.16, "Nonpolar covalent"]];
+  var t4 = document.querySelector("#t4 tbody");
+  B.forEach(function (r, i) {
+    reg("S4b" + i, "S4", "Bond type " + r[0] + "-" + r[2]);
+    var diff = Math.round(Math.abs(r[1] - r[3]) * 100) / 100, hi = r[1] > r[3] ? r[0] : r[2];
+    var negAns = r[4] === "Polar covalent" ? hi : "Not a polar bond";
+    var opts = (r[0] === r[2] ? [r[0]] : [r[0], r[2]]).concat(["Not a polar bond"]);
+    var tr = document.createElement("tr");
+    tr.innerHTML = "<td>" + r[0] + " (" + r[1].toFixed(2) + ") and " + r[2] + " (" + r[3].toFixed(2) + ')</td><td><input type="number" step="0.01" aria-label="Difference for ' + r[0] + " and " + r[2] + '"></td>' +
+      '<td><select aria-label="Bond type"><option value="">Choose</option><option>Nonpolar covalent</option><option>Polar covalent</option><option>Ionic</option></select></td>' +
+      '<td><select aria-label="Partly negative atom"><option value="">Choose</option>' + opts.map(function (o) { return "<option>" + o + "</option>"; }).join("") + "</select></td>" +
+      '<td class="msg"><button type="button" class="ghost">Check</button><div class="m" aria-live="polite"></div></td>';
+    t4.appendChild(tr);
+    var el = tr.querySelectorAll("input, select"), btn = tr.querySelector("button"), m = tr.querySelector(".m");
+    btn.addEventListener("click", function () {
+      var k = "S4b" + i; if (ITEMS[k].done) return;
+      if ([].some.call(el, function (x) { return x.value === ""; })) { m.textContent = "Fill in the whole row."; return; }
+      var ok = [Math.abs(parseFloat(el[0].value) - diff) <= 0.02, el[1].value === r[4], el[2].value === negAns];
+      [].forEach.call(el, function (x, j) { x.className = ok[j] ? "ok" : "bad"; });
+      if (ok.every(Boolean)) { mark(k, true); btn.disabled = true; [].forEach.call(el, function (x) { x.disabled = true; }); m.textContent = "Correct."; }
+      else if (ITEMS[k].tries >= 2) { mark(k, false, true); btn.disabled = true; m.textContent = "Answer: " + diff.toFixed(2) + ", " + r[4].toLowerCase() + ", " + negAns + "."; }
+      else { mark(k, false); m.textContent = !ok[0] ? "Bigger minus smaller." : (!ok[1] ? "Compare the difference with 0.4 and 1.7." : "Only a polar bond has a partly negative atom: the more electronegative one."); }
+    });
+  });
+  function lewis(key, title, fields, done) {
+    reg(key, "S4", "Lewis " + title);
+    var d = document.createElement("div"); d.className = "q";
+    var h = '<div class="qtext">' + title + '</div><div class="row">';
+    fields.forEach(function (f, j) { h += '<div><label for="' + key + j + '">' + f.l + '</label><input type="text" id="' + key + j + '" autocomplete="off" autocapitalize="off" spellcheck="false" style="width:' + (f.w || 110) + 'px"></div>'; });
+    h += '<button type="button">Check</button></div><div class="f" aria-live="polite"></div>';
+    d.innerHTML = h; $("s4c").appendChild(d);
+    var f = d.querySelector(".f"), btn = d.querySelector("button"), ins = d.querySelectorAll("input");
+    btn.addEventListener("click", function () {
+      if (ITEMS[key].done) return;
+      if ([].some.call(ins, function (x) { return !x.value.trim(); })) { fb(f, "try", "Fill in every box."); return; }
+      var ok = true;
+      [].forEach.call(ins, function (x, j) {
+        var fd = fields[j], v = x.value.trim(), o = fd.t === "num" ? +v === fd.a : (fd.t === "charge" ? chargeOK(v, fd.a) : normF(v) === fd.a);
+        x.className = o ? "ok" : "bad"; if (!o) ok = false;
+      });
+      if (ok) { mark(key, true); btn.disabled = true; fb(f, "good", "Correct. " + done); }
+      else if (ITEMS[key].tries >= 2) { mark(key, false, true); btn.disabled = true; fb(f, "try", done); }
+      else { mark(key, false); fb(f, "try", "Not yet. Check the boxes in red. Use each element&rsquo;s group number to find its valence electrons, and remember every nonmetal needs a full octet."); }
+    });
+  }
+  lewis("S4c0", "Magnesium + chlorine", [{ l: "Mg valence e\u207B", t: "num", a: 2 }, { l: "Cl valence e\u207B", t: "num", a: 7 }, { l: "Cl atoms needed", t: "num", a: 2 }, { l: "Mg ion charge", t: "charge", a: 2 }, { l: "Cl ion charge", t: "charge", a: -1 }, { l: "Formula", t: "formula", a: "MgCl2", w: 130 }],
+    "Mg gives one electron to each of two Cl atoms: [Mg]<sup>2+</sup> [Cl]<sup>" + MINUS + "</sup> [Cl]<sup>" + MINUS + "</sup>, so the formula is MgCl<sub>2</sub>.");
+  lewis("S4c1", "Potassium + sulfur", [{ l: "K valence e\u207B", t: "num", a: 1 }, { l: "S valence e\u207B", t: "num", a: 6 }, { l: "K atoms needed", t: "num", a: 2 }, { l: "K ion charge", t: "charge", a: 1 }, { l: "S ion charge", t: "charge", a: -2 }, { l: "Formula", t: "formula", a: "K2S", w: 130 }],
+    "Each of two K atoms gives one electron to S: [K]<sup>+</sup> [K]<sup>+</sup> [S]<sup>2" + MINUS + "</sup>, so the formula is K<sub>2</sub>S.");
+
+  /* ---------- Station 5 ---------- */
+  var P5 = [
+    { p: "Name: Li<sub>2</sub>S", k: "name", a: "lithium sulfide" }, { p: "Name: Ba(OH)<sub>2</sub>", k: "name", a: "barium hydroxide" },
+    { p: "Name: FeBr<sub>3</sub>", k: "name", a: "iron(III) bromide" }, { p: "Name: (NH<sub>4</sub>)<sub>3</sub>PO<sub>4</sub>", k: "name", a: "ammonium phosphate" },
+    { p: "Formula: calcium fluoride", k: "formula", a: "CaF2" }, { p: "Formula: aluminum nitrate", k: "formula", a: "Al(NO3)3" },
+    { p: "Formula: tin(IV) oxide", k: "formula", a: "SnO2" }, { p: "Formula: magnesium phosphate", k: "formula", a: "Mg3(PO4)2" },
+    { p: "CaCl<sub>2</sub>: ionic or covalent?", k: "class", t: "Ionic", a: "calcium chloride" }, { p: "CO<sub>2</sub>: ionic or covalent?", k: "class", t: "Covalent" },
+    { p: "Na<sub>2</sub>SO<sub>4</sub>: ionic or covalent?", k: "class", t: "Ionic", a: "sodium sulfate" }, { p: "NH<sub>3</sub>: ionic or covalent?", k: "class", t: "Covalent" }
+  ];
+  var s5first = null;
+  P5.forEach(function (q, i) {
+    reg("S5p" + i, "S5", "Practice " + (i + 1));
+    var d = document.createElement("div"); d.className = "q";
+    var h = '<div class="qtext">' + (i + 1) + ". " + q.p + '</div><div class="row">';
+    if (q.k === "class") h += '<div><label for="p5s' + i + '">Type</label><select id="p5s' + i + '"><option value="">Choose</option><option>Ionic</option><option>Covalent</option></select></div><div><label for="p5i' + i + '">If ionic, name it</label><input type="text" id="p5i' + i + '" autocomplete="off" autocapitalize="off" spellcheck="false" style="width:230px"></div>';
+    else h += '<div><label for="p5i' + i + '">' + (q.k === "name" ? "Name" : "Formula") + '</label><input type="text" id="p5i' + i + '" autocomplete="off" autocapitalize="off" spellcheck="false" style="width:240px"></div>';
+    d.innerHTML = h + '</div><div class="small" id="p5m' + i + '"></div>'; $("s5list").appendChild(d);
+  });
+  function p5ok(i) {
+    var q = P5[i], v = $("p5i" + i).value.trim();
+    if (q.k === "name") return normN(v) === normN(q.a);
+    if (q.k === "formula") return normF(v) === q.a;
+    var t = $("p5s" + i).value; if (t !== q.t) return false;
+    return q.t === "Covalent" ? true : normN(v) === normN(q.a);
+  }
+  function p5filled(i) { var q = P5[i]; if (q.k !== "class") return $("p5i" + i).value.trim() !== ""; var t = $("p5s" + i).value; return t === "Covalent" || (t === "Ionic" && $("p5i" + i).value.trim() !== ""); }
+  $("s5check").addEventListener("click", function () {
+    var f = $("s5fb"), i, miss = 0;
+    for (i = 0; i < P5.length; i++) if (!p5filled(i)) { fb(f, "try", "Answer all 12 first. Number " + (i + 1) + " is not finished. (Name the compound if you choose ionic.)"); return; }
+    var right = 0;
+    for (i = 0; i < P5.length; i++) {
+      var ok = p5ok(i), k = "S5p" + i, inp = $("p5i" + i), sel = $("p5s" + i);
+      if (!ITEMS[k].done) { if (ok) mark(k, true); else if (ITEMS[k].tries >= 2) { mark(k, false, true); } else mark(k, false); }
+      inp.className = ok ? "ok" : "bad"; if (sel) sel.className = ok ? "ok" : "bad";
+      var msg = "";
+      if (!ok) {
+        miss++;
+        msg = ITEMS[k].help ? "Answer: " + (P5[i].k === "class" ? P5[i].t.toLowerCase() + (P5[i].a ? ", " + P5[i].a : "") : (P5[i].k === "formula" ? hs(P5[i].a) : P5[i].a)) + "." :
+          (P5[i].k === "class" ? "Look at the elements: a metal with a nonmetal (or a polyatomic ion) is ionic. Only nonmetals is covalent." : (P5[i].k === "formula" ? "Balance the charges, and check parentheses and capital letters." : "Check the anion&rsquo;s name and whether the metal needs a Roman numeral."));
+      } else right++;
+      $("p5m" + i).innerHTML = msg;
+    }
+    if (s5first === null) s5first = right;
+    $("s5after").hidden = false;
+    fb(f, miss ? "try" : "good", miss ? right + " of 12 correct so far. Fix the ones in red and check again. First-try score: " + s5first + " of 12." : "All 12 correct. First-try score: " + s5first + " of 12.");
+  });
+
+  /* ---------- Station 6 ---------- */
+  var CI = [{ p: "1. Name: Al<sub>2</sub>O<sub>3</sub>", k: "name", a: "aluminum oxide", les: "lesA" }, { p: "2. Formula: magnesium nitrate", k: "formula", a: "Mg(NO3)2", les: "lesB" }, { p: "3. Name: FeCl<sub>3</sub>", k: "name", a: "iron(III) chloride", les: "lesC" }];
+  var ciScore = null;
+  CI.forEach(function (q, i) {
+    var d = document.createElement("div"); d.className = "q";
+    d.innerHTML = '<div class="qtext">' + q.p + '</div><input type="text" id="ci' + i + '" aria-label="Answer ' + (i + 1) + '" autocomplete="off" autocapitalize="off" spellcheck="false" style="width:260px"> <span class="small" id="cim' + i + '"></span>';
+    $("s6ci").appendChild(d);
+  });
+  $("s6btn").addEventListener("click", function () {
+    var i; for (i = 0; i < 3; i++) if (!$("ci" + i).value.trim()) { fb($("s6fb"), "try", "Answer all three first."); return; }
+    ciScore = 0; var missed = [];
+    CI.forEach(function (q, j) {
+      var v = $("ci" + j).value.trim(), ok = q.k === "name" ? normN(v) === normN(q.a) : normF(v) === q.a;
+      $("ci" + j).className = ok ? "ok" : "bad"; $("ci" + j).disabled = true;
+      $("cim" + j).innerHTML = ok ? "Correct" : "Answer: " + (q.k === "formula" ? hs(q.a) : q.a);
+      if (ok) ciScore++; else { missed.push(q.les); $(q.les).open = true; }
+    });
+    $("s6btn").disabled = true; $("s6lessons").hidden = false;
+    fb($("s6fb"), ciScore === 3 ? "good" : "info", ciScore === 3 ? "3 of 3. You are ready for the challenge below. The mini-lessons are there if you want them." :
+      ciScore + " of 3. Read the mini-lesson" + (missed.length > 1 ? "s" : "") + " that opened below and answer the check questions, then do the challenge.");
+  });
+  textItem($("lesAq"), { id: "S6a1", station: "S6", label: "Lesson A: Ca + N", prompt: "Check: write the formula for Ca<sup>2+</sup> and N<sup>3&minus;</sup>.", kind: "formula", ans: "Ca3N2", inputLabel: "Formula", hint: "Not yet. The common multiple of 2 and 3 is 6." });
+  textItem($("lesAq"), { id: "S6a2", station: "S6", label: "Lesson A: BaI2", prompt: "Check: name BaI<sub>2</sub>.", kind: "name", ans: "barium iodide", inputLabel: "Name", hint: "Not yet. Metal first, then the nonmetal with -ide. No prefixes." });
+  textItem($("lesBq"), { id: "S6b1", station: "S6", label: "Lesson B: Mg3(PO4)2", prompt: "Check: name Mg<sub>3</sub>(PO<sub>4</sub>)<sub>2</sub>.", kind: "name", ans: "magnesium phosphate", inputLabel: "Name", hint: "Not yet. Keep the polyatomic ion&rsquo;s own name." });
+  textItem($("lesBq"), { id: "S6b2", station: "S6", label: "Lesson B: ammonium chloride", prompt: "Check: write the formula for ammonium chloride.", kind: "formula", ans: "NH4Cl", inputLabel: "Formula", hint: "Not yet. One ammonium (1+) and one chloride (1&minus;). Do you need parentheses for just one?" });
+  textItem($("lesCq"), { id: "S6c1", station: "S6", label: "Lesson C: Cu2O", prompt: "Check: name Cu<sub>2</sub>O.", kind: "name", ans: "copper(I) oxide", inputLabel: "Name", hint: "Not yet. One O<sup>2&minus;</sup> is balanced by two copper ions. What is the charge on each?" });
+  textItem($("lesCq"), { id: "S6c2", station: "S6", label: "Lesson C: chromium(III) hydroxide", prompt: "Check: write the formula for chromium(III) hydroxide.", kind: "formula", ans: "Cr(OH)3", inputLabel: "Formula", hint: "Not yet. Cr is 3+, and each hydroxide is 1&minus;. More than one polyatomic ion needs parentheses." });
+  [["A classmate wrote Ca(OH) for calcium hydroxide. Write the correct formula.", "formula", "Ca(OH)2", "Two hydroxide ions are needed to balance Ca<sup>2+</sup>."],
+   ["A classmate named FeCl<sub>3</sub> &ldquo;iron chloride.&rdquo; Write the correct name.", "name", "iron(III) chloride", "Iron needs a Roman numeral, and three Cl<sup>&minus;</sup> make it 3+."],
+   ["A classmate wrote MgN for magnesium nitride. Write the correct formula.", "formula", "Mg3N2", "Three Mg<sup>2+</sup> balance two N<sup>3&minus;</sup>."],
+   ["A classmate called sodium oxide &ldquo;sodium dioxide&rdquo; and wrote NaO<sub>2</sub>. Write the correct formula.", "formula", "Na2O", "Two Na<sup>+</sup> balance one O<sup>2&minus;</sup>, and ionic names do not use prefixes."]
+  ].forEach(function (x, i) { textItem($("s6fix"), { id: "S6f" + i, station: "S6", label: "Find the mistake " + (i + 1), prompt: (i + 1) + ". " + x[0], kind: x[1], ans: x[2], inputLabel: x[1] === "name" ? "Name" : "Formula", hint: "Not yet. Balance the charges and check the naming rule.", work: x[3] }); });
+  ["Binary", "Polyatomic ion", "Roman numeral + nonmetal", "Roman numeral + polyatomic ion"].forEach(function (t, i) {
+    var tr = document.createElement("tr");
+    tr.innerHTML = "<td>" + t + '</td><td><input type="text" id="my' + i + 'f" aria-label="' + t + ' formula" autocomplete="off" autocapitalize="off" spellcheck="false"></td><td><input type="text" id="my' + i + 'n" aria-label="' + t + ' name" autocomplete="off" autocapitalize="off" spellcheck="false"></td>';
+    document.querySelector("#t6 tbody").appendChild(tr);
+  });
+
+  /* ---------- Exit ticket ---------- */
+  var EX = [
+    { p: "1. Name: Mg(NO<sub>3</sub>)<sub>2</sub>", k: "name", a: "magnesium nitrate" }, { p: "2. Formula: aluminum oxide", k: "formula", a: "Al2O3" },
+    { p: "3. Name: Fe<sub>2</sub>O<sub>3</sub>", k: "name", a: "iron(III) oxide" }, { p: "4. Formula: ammonium sulfate", k: "formula", a: "(NH4)2SO4" },
+    { p: "5. Is K<sub>2</sub>S ionic or covalent? If ionic, name it.", k: "class", t: "Ionic", a: "potassium sulfide" },
+    { p: "6. Mg (1.31) and Cl (3.16): find the difference and the bond type.", k: "bond", d: 1.85, t: "Ionic" }
+  ];
+  var exScore = null, exAns = [];
+  EX.forEach(function (q, i) {
+    var d = document.createElement("div"); d.className = "q";
+    var h = '<div class="qtext">' + q.p + '</div><div class="row">';
+    if (q.k === "class") h += '<div><label for="exs' + i + '">Type</label><select id="exs' + i + '"><option value="">Choose</option><option>Ionic</option><option>Covalent</option></select></div><div><label for="exi' + i + '">Name</label><input type="text" id="exi' + i + '" autocomplete="off" autocapitalize="off" spellcheck="false" style="width:230px"></div>';
+    else if (q.k === "bond") h += '<div><label for="exi' + i + '">Difference</label><input type="number" step="0.01" id="exi' + i + '" style="width:110px"></div><div><label for="exs' + i + '">Bond type</label><select id="exs' + i + '"><option value="">Choose</option><option>Nonpolar covalent</option><option>Polar covalent</option><option>Ionic</option></select></div>';
+    else h += '<div><label for="exi' + i + '">' + (q.k === "name" ? "Name" : "Formula") + '</label><input type="text" id="exi' + i + '" autocomplete="off" autocapitalize="off" spellcheck="false" style="width:240px"></div>';
+    d.innerHTML = h + '</div><div class="small" id="exm' + i + '"></div>'; $("exlist").appendChild(d);
+  });
+  $("exbtn").addEventListener("click", function () {
+    var i, f = $("exfb");
+    for (i = 0; i < EX.length; i++) {
+      var q0 = EX[i], iv = $("exi" + i).value.trim(), sv = $("exs" + i) ? $("exs" + i).value : "x";
+      if ((q0.k === "class" && (!sv || (sv === "Ionic" && !iv))) || (q0.k === "bond" && (!sv || !iv)) || ((q0.k === "name" || q0.k === "formula") && !iv)) { fb(f, "try", "Answer all six before you submit. Number " + (i + 1) + " is not finished."); return; }
+    }
+    exScore = 0; exAns = [];
+    EX.forEach(function (q, j) {
+      var inp = $("exi" + j), sel = $("exs" + j), v = inp.value.trim(), ok, shown, corr;
+      if (q.k === "name") { ok = normN(v) === normN(q.a); shown = v; corr = q.a; }
+      else if (q.k === "formula") { ok = normF(v) === q.a; shown = v; corr = q.a; }
+      else if (q.k === "class") { ok = sel.value === q.t && normN(v) === normN(q.a); shown = sel.value + (v ? ", " + v : ""); corr = "ionic, " + q.a; }
+      else { ok = Math.abs(parseFloat(v) - q.d) <= 0.02 && sel.value === q.t; shown = v + ", " + sel.value; corr = q.d.toFixed(2) + ", ionic"; }
+      if (ok) exScore++;
+      inp.className = ok ? "ok" : "bad"; inp.disabled = true; if (sel) { sel.className = ok ? "ok" : "bad"; sel.disabled = true; }
+      $("exm" + j).innerHTML = ok ? "Correct" : "Answer: " + (q.k === "formula" ? hs(corr) : corr);
+      exAns.push({ n: j + 1, yours: shown, ok: ok });
+    });
+    $("exbtn").disabled = true;
+    fb(f, exScore >= 5 ? "good" : "info", "Exit ticket: <b>" + exScore + " of 6</b>. " + (exScore >= 5 ? "Your homework is the <b>Aspire to Do</b> task." : "Your homework is the <b>Should Do</b> task.") + " Check Canvas or ask your teacher for the details.");
+  });
+
+  /* ---------- Summary ---------- */
+  var STN = { S1: "Station 1: Build It, Binary", S2: "Station 2: Build It, Polyatomic", S3: "Station 3: Mystery Metals", S4: "Station 4: Bonds and Lewis", S5: "Station 5: Practice and Check", S6: "Station 6: Mini-lessons and challenge" };
+  function buildSummary() {
+    var name = $("stuName").value.trim() || "(no name entered)", per = $("stuPer").value.trim();
+    var html = "<h3 style='margin-top:0'>Naming Lab results: " + esc(name) + (per ? ", period " + esc(per) : "") + "</h3><div class='small'>" + new Date().toLocaleString() + "</div>";
+    var txt = "NAMING LAB RESULTS\n" + name + (per ? " | Period " + per : "") + "\n" + new Date().toLocaleString() + "\n";
+    Object.keys(STN).forEach(function (s) {
+      var ids = ORDER.filter(function (k) { return ITEMS[k].station === s && !FREE[k]; });
+      var done = 0, first = 0, help = 0; ids.forEach(function (k) { var it = ITEMS[k]; if (it.done) done++; if (it.first) first++; if (it.help) help++; });
+      var line = ids.length ? "Checked items finished: " + done + " of " + ids.length + ". Correct on the first try: " + first + ". Needed the answer shown: " + help + "." : "";
+      if (s === "S5") line += " First-try score on the 12 problems: " + (s5first === null ? "not checked" : s5first + " of 12") + ". Most common mistake: " + ($("s5code").value || "not chosen") + ".";
+      if (s === "S6") line += " Check-in: " + (ciScore === null ? "not done" : ciScore + " of 3") + ".";
+      html += "<h4>" + STN[s] + "</h4><div>" + line + "</div>"; txt += "\n" + STN[s].toUpperCase() + "\n" + line + "\n";
+      FREEORDER.filter(function (k) { return FREE[k].station === s; }).forEach(function (k) {
+        var a = FREE[k].text || "(no answer)";
+        html += "<div class='small'><b>" + esc(FREE[k].label) + "</b></div><div class='ans'>" + esc(a) + "</div>"; txt += "- " + FREE[k].label + ": " + a + "\n";
+      });
+      if (s === "S5" && $("s5diff").value.trim()) { html += "<div class='small'><b>One thing I will do differently</b></div><div class='ans'>" + esc($("s5diff").value.trim()) + "</div>"; txt += "- Do differently: " + $("s5diff").value.trim() + "\n"; }
+      if (s === "S6") {
+        var mine = []; for (var i = 0; i < 4; i++) { var a1 = $("my" + i + "f").value.trim(), a2 = $("my" + i + "n").value.trim(); if (a1 || a2) mine.push(a1 + " = " + a2); }
+        if (mine.length) { html += "<div class='small'><b>Make your own (teacher checks)</b></div><div class='ans'>" + esc(mine.join("\n")) + "</div>"; txt += "- Make your own: " + mine.join("; ") + "\n"; }
+      }
+    });
+    var exLine = exScore === null ? "Not submitted." : exScore + " of 6. " + (exScore >= 5 ? "Aspire to Do." : "Should Do.") + " " + exAns.map(function (a) { return a.n + ": " + a.yours + (a.ok ? " (correct)" : " (missed)"); }).join("; ");
+    html += "<h4>Exit ticket</h4><div>" + esc(exLine) + "</div>"; txt += "\nEXIT TICKET\n" + exLine + "\n";
+    html += "<h4>Reflection</h4>"; txt += "\nREFLECTION\n";
+    [["r1", "I am sure about"], ["r2", "Still shaky"], ["r3", "The mistake I will watch for"]].forEach(function (r) {
+      var v = $(r[0]).value.trim() || "(no answer)"; html += "<div class='small'><b>" + r[1] + "</b></div><div class='ans'>" + esc(v) + "</div>"; txt += "- " + r[1] + ": " + v + "\n";
+    });
+    return { html: html, txt: txt };
+  }
+  $("mkSum").addEventListener("click", function () {
+    var s = buildSummary(); $("summaryOut").innerHTML = s.html; $("summaryOut").hidden = false; $("cpArea").value = s.txt;
+    $("prSum").hidden = false; $("cpSum").hidden = false; $("cpFb").textContent = "Summary built. If you change any answers, build it again.";
+  });
+  $("prSum").addEventListener("click", function () { document.body.classList.add("printing"); window.print(); setTimeout(function () { document.body.classList.remove("printing"); }, 500); });
+  $("cpSum").addEventListener("click", function () {
+    var ta = $("cpArea"); ta.hidden = false; ta.focus(); ta.select();
+    var done = function () { $("cpFb").textContent = "Copied. Paste it into your Canvas submission."; };
+    var manual = function () { $("cpFb").textContent = "Select all the text in the box below, copy it, and paste it into Canvas."; };
+    try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(done, manual); else if (document.execCommand("copy")) done(); else manual(); } catch (e) { manual(); }
+  });
+
+  progress();
+})();
+</script>
+</body>
+</html>
